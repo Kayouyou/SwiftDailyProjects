@@ -13,6 +13,7 @@
 		EF4953A71E44B1DA0038DEA4 /* SwiftProjectOne.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EF4953A51E44B1DA0038DEA4 /* SwiftProjectOne.xcdatamodeld */; };
 		EF4953A91E44B1DA0038DEA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF4953A81E44B1DA0038DEA4 /* Assets.xcassets */; };
 		EF4953AC1E44B1DA0038DEA4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF4953AA1E44B1DA0038DEA4 /* LaunchScreen.storyboard */; };
+		EF4953B61E44BD6E0038DEA4 /* Timer-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4953B51E44BD6E0038DEA4 /* Timer-Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		EF4953A81E44B1DA0038DEA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EF4953AB1E44B1DA0038DEA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EF4953AD1E44B1DA0038DEA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EF4953B51E44BD6E0038DEA4 /* Timer-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Timer-Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			children = (
 				EF49539E1E44B1DA0038DEA4 /* AppDelegate.swift */,
 				EF4953A01E44B1DA0038DEA4 /* ViewController.swift */,
+				EF4953B51E44BD6E0038DEA4 /* Timer-Extension.swift */,
 				EF4953A21E44B1DA0038DEA4 /* Main.storyboard */,
 				EF4953A81E44B1DA0038DEA4 /* Assets.xcassets */,
 				EF4953AA1E44B1DA0038DEA4 /* LaunchScreen.storyboard */,
@@ -143,6 +146,7 @@
 				EF4953A11E44B1DA0038DEA4 /* ViewController.swift in Sources */,
 				EF4953A71E44B1DA0038DEA4 /* SwiftProjectOne.xcdatamodeld in Sources */,
 				EF49539F1E44B1DA0038DEA4 /* AppDelegate.swift in Sources */,
+				EF4953B61E44BD6E0038DEA4 /* Timer-Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -56,14 +56,28 @@
                                     <action selector="resetTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qrW-Zd-uaY"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rUk-Tg-tqF">
+                                <rect key="frame" x="164" y="458" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="ZbN-Bt-sF3"/>
+                                    <constraint firstAttribute="height" constant="30" id="cHL-P9-s6z"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="singleTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZEe-mK-W5L"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ezq-Bb-UA0" secondAttribute="bottom" constant="271" id="0ug-Tr-4xJ"/>
                             <constraint firstItem="gt3-yt-drI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="78" id="6IY-m5-oEm"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="rUk-Tg-tqF" secondAttribute="bottom" constant="179" id="9Ow-XD-xRs"/>
                             <constraint firstItem="8ue-Cb-vUf" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="62" id="Cun-4M-wXg"/>
                             <constraint firstItem="8ue-Cb-vUf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="166" id="J67-q8-LzV"/>
                             <constraint firstItem="ezq-Bb-UA0" firstAttribute="leading" secondItem="gt3-yt-drI" secondAttribute="trailing" constant="182" id="MnY-Xc-5AX"/>
+                            <constraint firstAttribute="trailing" secondItem="rUk-Tg-tqF" secondAttribute="trailing" constant="165" id="bcy-X0-buN"/>
+                            <constraint firstItem="rUk-Tg-tqF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="164" id="fQl-ng-CPn"/>
                             <constraint firstItem="qCR-lT-X08" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="68" id="kSW-D8-QKW"/>
                             <constraint firstAttribute="trailing" secondItem="8ue-Cb-vUf" secondAttribute="trailing" constant="167" id="mJT-P8-KmH"/>
                             <constraint firstAttribute="trailing" secondItem="ezq-Bb-UA0" secondAttribute="trailing" constant="53" id="mt1-WF-Y4Z"/>
@@ -73,6 +87,7 @@
                     </view>
                     <connections>
                         <outlet property="endButton" destination="ezq-Bb-UA0" id="WSQ-Fh-R7T"/>
+                        <outlet property="singleButton" destination="rUk-Tg-tqF" id="NRn-bb-DXq"/>
                         <outlet property="startButton" destination="gt3-yt-drI" id="qa9-X3-XvY"/>
                         <outlet property="timeLable" destination="8ue-Cb-vUf" id="t2g-6R-9fu"/>
                     </connections>
