@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SwiftProjectOne" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gt3-yt-drI">
+                                <rect key="frame" x="78" y="366" width="31" height="30"/>
+                                <state key="normal" title="开始"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ezq-Bb-UA0">
+                                <rect key="frame" x="291" y="366" width="31" height="30"/>
+                                <state key="normal" title="结束"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ue-Cb-vUf">
+                                <rect key="frame" x="166" y="82" width="42" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="XHn-S8-5Oc"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="k08-4t-ulJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ezq-Bb-UA0" secondAttribute="bottom" constant="271" id="0ug-Tr-4xJ"/>
+                            <constraint firstItem="gt3-yt-drI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="78" id="6IY-m5-oEm"/>
+                            <constraint firstItem="8ue-Cb-vUf" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="62" id="Cun-4M-wXg"/>
+                            <constraint firstItem="8ue-Cb-vUf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="166" id="J67-q8-LzV"/>
+                            <constraint firstItem="ezq-Bb-UA0" firstAttribute="leading" secondItem="gt3-yt-drI" secondAttribute="trailing" constant="182" id="MnY-Xc-5AX"/>
+                            <constraint firstAttribute="trailing" secondItem="8ue-Cb-vUf" secondAttribute="trailing" constant="167" id="mJT-P8-KmH"/>
+                            <constraint firstAttribute="trailing" secondItem="ezq-Bb-UA0" secondAttribute="trailing" constant="53" id="mt1-WF-Y4Z"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="gt3-yt-drI" secondAttribute="bottom" constant="271" id="vii-An-Nm4"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="endButton" destination="ezq-Bb-UA0" id="WSQ-Fh-R7T"/>
+                        <outlet property="startButton" destination="gt3-yt-drI" id="qa9-X3-XvY"/>
+                        <outlet property="timeLable" destination="8ue-Cb-vUf" id="t2g-6R-9fu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
