@@ -44,6 +44,64 @@ print(lowercaseLetters)
 singleDigtNumbers.contains(9)
 lowercaseLetters.overlaps("c"..<"f")
 
+//可数范围
+/*
+Range 和 ClosedRange不是序列也不是集合类型
+..<范围确实是序列，因为它其实是一个CountableRange<int>
+ CountableRange和Range很相似，只不过它还需要一个附加约束
+ 它的元素类型需要遵守Strideable协议（以整数为步长）
+ swift将这类功能更强的范围叫做可数范围，因为只有这类范围可以被迭代
+ */
+
+for i in 0..<10{
+    print("\(i)")
+}
+
+//范围表达式
+let arr = [1,2,3,4]
+arr[2...]
+arr[..<1]
+arr[1...2]
+
+//这种写法能够正常工作，因为Collection协议里对应的下标操作声明中，所接收的是一个RangeExpression的参数，而不是上述八个具体类型中的某一个
+arr[...]
+//这个其实是swift4.0 的特殊实现，这种无边界范围还不有效的RangeExpression类型，不过它应该遵守RnageExpression协议
+type(of: arr)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
