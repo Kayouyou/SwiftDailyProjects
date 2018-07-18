@@ -38,9 +38,101 @@ struct PrefixSequence:Sequence{
     }
 }
 
+//使用for循环迭代 优雅输出字符的每个前缀
 for prefix in PrefixSequence(string: "Hello"){
     print(prefix)
 }
+
+//我们可以对它执行sequence的所有操作
+PrefixSequence(string:"kayoyo").map {$0.uppercased()}
+
+//迭代器和值语义
+//标准库中大部分迭代器都是具有值语义的，不过也有例外存在
+
+let seq = stride(from: 0, to: 10, by: 1)
+type(of: seq)
+var i1 = seq.makeIterator()
+i1.next()
+i1.next()
+
+var i2 = i1
+//现在原有的迭代器和新复制的迭代器是分开且独立的了
+i1.next()
+i1.next()
+i2.next()
+i2.next()
+
+//现在看一个不具有值语义的迭代器，它将用来将原来的迭代器进行封装的迭代器，它可以用来将原来的迭代器的具体类型摸消掉
+var i3 = AnyIterator(i1)
+var i4 = i3
+
+//这种情况，原来的迭代器和复制后的迭代器并不是独立的，因为实际的迭代器不再是一个结构体，anyiterator并不具有值语义，anyiterator中用来存储原来迭代器的盒子对象是一个类实例
+i3.next()
+i4.next()
+i3.next()
+
+//自定义类型的斐波那契数列迭代器
+/**
+struct FibsIterator: IteratorProtocol {
+    var state = (0, 1)
+    mutating func next() -> Int? {
+        let upcomingNumber = state.0
+        state = (state.1, state.0 + state.1)
+        return upcomingNumber
+    }
+}
+*/
+
+//基于函数的迭代器和序列
+//anyiterator还有另外一个初始化方法，那就是直接接受一个next函数作为参数，与对应的anysequence类型结合使用，我们可以做到不定义任何新的类型就能创建迭代器和序列
+//与自定义类型的区别是：自定义的结构体具有值语义，使用anyiterator的没有
+func fibsIterator()->AnyIterator<Int>{
+    var state = (0,1)
+    return AnyIterator{
+        let upcomingNumber = state.0
+        state = (state.1, state.0 + state.1)
+        return upcomingNumber
+    }
+}
+
+//anysequence提供一个接受返回值为迭代器的函数作为输入的初始化方法
+let fib = AnySequence(fibsIterator)
+Array(fib.prefix(10))
+
+//另外一种方法是使用sequence函数
+let fib2 = sequence(state: (0,1)) { (state:inout(Int,Int)) -> Int? in
+    let upcomingNumber = state.0
+    state = (state.1, state.0 + state.1)
+    return upcomingNumber
+}
+
+Array(fib2.prefix(10))
+
+
+//无限序列
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
