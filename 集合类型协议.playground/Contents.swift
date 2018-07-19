@@ -111,6 +111,154 @@ Array(fib2.prefix(10))
 
 //无限序列
 
+//子序列 Sequence 还有另外一个关联类型，叫做SubSequence
+//扩展一个方法  检查一个序列的开头和结尾是否以同样的N个元素开始
+extension Sequence where Element:Equatable,SubSequence:Sequence,SubSequence.Element == Element{
+    func headMirrorsTail(_ n:Int) -> Bool {
+        let head = prefix(n)
+        let tail = suffix(n).reversed()
+        //用来比较的elementsEqual方法只能在外面告诉编译器子序列也是一个序列 并且他的元素和原序列的元素类相同的情况下才能工作（序列中的类型已经遵守了equaltable）
+        return head.elementsEqual(tail)
+    }
+}
+
+[1,2,3,4,2,1].headMirrorsTail(2)
+
+//链表 作为自定义序列的例子，让我们来用间接枚举实现一个最基础的数据结构，单向链表
+//一个链表的节点有两种可能：要么是一个节点包含了值及对下一个节点的引用，要么他代表链表的结束
+
+enum List<Element>{
+    case end
+    indirect case node(Element,next:List<Element>)
+}
+
+//这里使用indirect关键字可以告诉编译器这个灭局值node应该被看做引用
+//swift中枚举是值类型，这意味着一个枚举值直接在变量中持有它的值，而不是持有一个指向位置的引用
+//但是值类型不能循环引用自身，否则编译器就无法计算它的尺寸，indirect关键字允许一个枚举成员能够被当做引用这样一来，它就可以持有自己了
+
+let enmptyList = List<Int>.end
+let oneElementList = List.node(1, next: enmptyList)
+
+//创建一个方法为了使用方便
+extension List{
+    func cons(_ x:Element) -> List {
+        return .node(x,next:self)
+    }
+}
+
+let list = List<Int>.end.cons(1).cons(2).cons(3)
+
+//看起来很丑陋，我们改造一下 目标是能用数组字面量的方式初始化一个链表
+//首先对输入数组进行逆序操作，然后使用reduce函数，并已.end为初始值，来将元素一个一个添加到链表中
+extension List:ExpressibleByArrayLiteral{
+    init(arrayLiteral elements: Element...) {
+        self = elements.reversed().reduce(.end){partialList,element in
+            partialList.cons(element)
+        }
+    }
+}
+
+let list2:List = [3,2,1]
+
+//这个列表有个特征，它是持久的 节点是不可变的  一旦它们被创建 你就无法在进行更改了
+
+let list3:List = [4,5,6]
+
+//链表共享
+//链表的不可变性的关键就是这里，假设可以改变链表，那共享就会出现问题
+//继续扩展list
+extension List{
+    
+    mutating func push(_ x:Element){
+        self = self.cons(x)
+    }
+    
+    mutating func pop()-> Element?{
+        switch self {
+        case .end:
+            return nil
+        case let .node(x,next:tail):
+            self = tail
+            return x
+        }
+    }
+}
+
+//链表不是具有持久性和不可变星吗？这些可变方法其实并没有改变链表本身，它们改变的只是变量所持有的节点到底是哪一个
+
+var stack:List<Int> = [6,5,4]
+var a = stack
+var b = stack
+a.pop()//6
+a.pop()//5
+a.pop()//4
+a.pop()//nil
+
+//stack.pop()//6
+//stack.pop()//5
+stack.push(3)
+
+b.pop()//6
+b.pop()//5
+b.pop()//4
+b.pop()//nil
+b
+
+stack.pop()
+stack.pop()
+stack.pop()
+stack.pop()
+
+//这足以说明值和变量之间的不同，列表节点是值，它们不会改变
+
+//让 list遵守Sequence 我们只需提供一个next方法 就能一次性地使它遵守iteratorProtocol和sequence协议
+
+extension List:IteratorProtocol,Sequence{
+    mutating func next() -> Element? {
+        return pop()
+    }
+}
+
+//现在你就能在列表上使用 for in 了
+
+let list4:List = ["1","2","3"]
+for x in list4 {
+    print("\(x)",terminator:" ")
+}
+
+//同时得益于协议扩展的强大特性，我们可以在list上使用很多标准库中的函数
+list4.joined(separator: ",")
+list4.contains("2")
+print(list4.flatMap {Int($0)})
+list4.elementsEqual(["1","2","3"])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
