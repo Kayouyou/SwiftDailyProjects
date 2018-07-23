@@ -125,7 +125,14 @@ queue
 
 let byteQueue:FIFOQueue<UInt8> = [1,2,3]
 
-
+//索引 表示集合中的位置
+/**
+ 每个集合都有两个特殊的索引值，startIndex和endIndex 前者指定集合中第一个元素，后者制定集合中最后一个
+ 元素之后的位置，所以endinde并不是一个有效的下标索引；
+ 
+ 整数类型的index的唯一要求是，它必须实现Comparable，索引必须要有确定的顺序
+ 
+ */
 
 
 
