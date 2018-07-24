@@ -134,6 +134,131 @@ let byteQueue:FIFOQueue<UInt8> = [1,2,3]
  
  */
 
+let numbers = [1,2,3,4]
+let squares = numbers.map {$0 * $0}
+let numberIndex = numbers.index(of:4)!
+squares[numberIndex]
+
+
+let hello = "hello"
+let world = "world"
+let helloindex = hello.startIndex
+world[helloindex]
+
+//自定义索引集合  示范：字符串直接截取前几个元素，而不用全部循环一次
+let str = "still i see monsters"
+str.split(separator:" ")
+//单词，每个单词的类型都是SubString 这正是String所关联的SubSequence
+//当你想分割一个集合类型，split方法往往是最合适的工具、但是它有个缺点就是计算出整个数组，如果集合非常大，这么做非常的低效
+//为了提高性能 我们需要构建一个Words集合 它能够让我们不一次计算出所有单词，而是可以用延迟加载的方式迭代
+
+extension Substring {
+    var nextWordRange: Range<Index> {
+        //这里我们直接使用空格作为单词的边界，当然作为练习你可以将它写为可以配置的值，一个子字符串可能有若干个空格作为开始，我们将它跳过，start是所有前置空格都被移除的子字符串
+        let start = drop(while: { $0 == " "})
+        //寻找下一个空格，如果找到空格就以它作为单词的结束边界，如果没有找到一个空格，那就使用endIndex
+        let end = start.index(where: { $0 == " "}) ?? endIndex
+        return start.startIndex..<end
+    }
+}
+
+//集合类型的索引需要满足comparable（因为comparable继承自equatable）所以我们还需要==
+
+struct WordsIndex:Comparable{
+    fileprivate let range:Range<Substring.Index>
+    fileprivate init(_ value:Range<Substring.Index>){
+        self.range = value
+    }
+    
+    static func <(lhs:Words.Index,rhs:Words.Index)-> Bool{
+        return lhs.range.lowerBound < rhs.range.lowerBound
+    }
+    static func ==(lhs:Words.Index,rhs:Words.Index)-> Bool{
+        return lhs.range.lowerBound == rhs.range.lowerBound
+    }
+}
+
+struct Words:Collection{
+    
+    let string:Substring
+    let startIndex:WordsIndex
+    
+    init(_ s:String) {
+        self.init(s[...])
+    }
+    private init(_ s:Substring){
+        self.string = s
+        self.startIndex = WordsIndex(string.nextWordRange)
+    }
+    
+    var endIndex: WordsIndex {
+        let e = string.endIndex
+        return WordsIndex(e..<e)
+    }
+}
+
+extension Words{
+    //集合类型需要提供subscript下标方法来获取元素
+    subscript(index:WordsIndex)-> Substring{
+        //直接使用索引中的范围值，使用单词的范围作为索引，可以实现o(1)复杂度
+        return string[index.range]
+    }
+    
+    func index(after i: WordsIndex) -> WordsIndex {
+        guard i.range.upperBound < string.endIndex else {
+            return endIndex
+        }
+        let remainder = string[i.range.upperBound...]
+        return WordsIndex(remainder.nextWordRange)
+    }
+}
+
+Array(Words("   hello guy !").prefix(1))
+
+
+//切片 所有的集合类型都有切片操作的默认实现，并且有一个接受Range<index>作为参数的下标方法
+let words:Words = Words("one two three")
+let onePastStart = words.index(after: words.startIndex)
+let firstDropped = words[onePastStart..<words.endIndex]
+Array(firstDropped)
+
+let firstDropped2 = words.suffix(from:onePastStart)
+let firstDropped3 = words[onePastStart...]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
