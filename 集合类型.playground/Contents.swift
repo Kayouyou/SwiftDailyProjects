@@ -225,6 +225,57 @@ Array(firstDropped)
 let firstDropped2 = words.suffix(from:onePastStart)
 let firstDropped3 = words[onePastStart...]
 
+//泛型  PrefixIterator
+struct PrefixIterator<Base:Collection>:IteratorProtocol,Sequence{
+    let base:Base
+    var offset:Base.Index
+    init(_ base:Base) {
+        self.base = base
+        self.offset = base.startIndex
+    }
+    mutating func next() -> Base.SubSequence? {
+        guard offset != base.endIndex else {return nil}
+        base.formIndex(after: &offset)
+        return base.prefix(upTo: offset)
+    }
+}
+
+
+let num = [1,2,3]
+Array(PrefixIterator(num))
+
+//双向索引 BidirectionCollection 在前项索引基础上只增加了一个方法，但是它非常的关键，那就是获取上一个索引值index(before:)有了这个方法，就可以对应first，给出默认last属性的实现了
+
+extension BidirectionalCollection{
+    public var last:Element?{
+        return isEmpty ? nil : self[index(before: endIndex)]
+    }
+}
+//collection 本身也可以提供last属性，但是不太好，在一个只能向前进行索引的集合属性中，想要获取最后一个元素，你就得一路从头迭代到尾，而这时一个O(n)操作，
+
+var coll = [1,2,3,4,5,6,7,8]
+print(coll.last!)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
