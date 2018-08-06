@@ -321,7 +321,7 @@ func !?<T>(wrapped:T?,nilDefault:@autoclosure ()->(value:T,text:String))->T{
 
 Int(sss) !? (5,"Expecting integer")
 
-//多灾多难的隐私解包可选值   常常用在类型后面加一个感叹号来表示 表示的是你使用它们时就自动强制解包的可选值 
+//多灾多难的隐私解包可选值   常常用在类型后面加一个感叹号来表示 表示的是你使用它们时就自动强制解包的可选值
 //常用语xcode和interface BUilder 在viewcontroller中使用它们的方式
 //
 
