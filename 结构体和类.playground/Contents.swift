@@ -164,6 +164,139 @@ for byte in 0..<5 as CountableRange<UInt8>{
     bytes.append(byte)
 }
 
+//闭包和可变性
+
+var i = 0
+func uniqueInteger()-> Int{
+    i += 1
+    return i
+}
+
+let temIn1 = uniqueInteger()
+temIn1//1
+
+let temIn2 = uniqueInteger()
+temIn2//2
+//以上两个共享了同样的状态
+
+//返回闭包，每次调用都会返回一个新的方法
+func uniqueIntegerProvider() -> () -> Int{
+    var i = 0
+    return{
+        i += 1
+        return i
+    }
+}
+
+let uniqueintegerFunc = uniqueIntegerProvider()
+uniqueintegerFunc()//1
+uniqueintegerFunc()//2
+
+let uniqueintegerFunc2 = uniqueIntegerProvider()
+uniqueintegerFunc2()//1
+
+//除了返回闭包，我们也可以将它封装成anyiterator 这样就可以在for循环里使用我们自己的发生器了
+func uniqueIntegerProvider2() -> AnyIterator<Int>{
+    var i = 0
+    return AnyIterator{
+        i += 1
+        return i
+    }
+}
+
+for iter in uniqueIntegerProvider2() {
+    print(iter)
+    if iter == 10 {
+        print("循环结束")
+        break
+    }
+}
+//weak引用
+class View{
+    var window:Window
+    init(window:Window) {
+        self.window = window
+    }
+    //会在类实例析构和回收之前调用
+    deinit {
+        print("denint view")
+    }
+}
+class Window{
+    init() {
+        
+    }
+    //弱引用趋于零的  当一个弱引用变量所引用的对象被释放时  这个变量会自动设为nil 所以weak必须被声明为可选值的原因
+    weak var rootView:View?
+    //闭包不能被声明为weak的
+    var onRatate:(()->())?
+    
+    deinit {
+        print("deinit window")
+    }
+}
+
+var window:Window? = Window()
+var view:View? = View(window: window!)
+window?.rootView = view
+//【weak view 】捕获列表  保证闭包不去引用视图
+window?.onRatate = { [weak view,weak mywindow = window] in
+    print("\(String(describing: view))")
+    print("\(String(describing: mywindow))")
+}
+window = nil
+view = nil
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
