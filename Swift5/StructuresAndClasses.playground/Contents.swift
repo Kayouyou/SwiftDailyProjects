@@ -102,10 +102,63 @@ struct Cuboid {
 }
 
 //属性观察
+class StepCounter {
+    var totalSteps: Int = 0 {
+        willSet(newTotalSteps){
+            print("About to set totalSteps to \(newTotalSteps)")
+        }
+        didSet {
+            if totalSteps > oldValue {
+                print("Added \(totalSteps - oldValue)")
+            }
+        }
+    }
+}
 
+let stepCounter = StepCounter()
+stepCounter.totalSteps = 200
+stepCounter.totalSteps = 360
 
+//类型属性
+struct SomeStructure {
+    static var storedTypeProperty = "Some value"
+    static var computedTypeProperty: Int {
+        return 1
+    }
+}
 
+enum Somefunction {
+    static var storedTypeProperty = "Some Values"
+    static var counputedTypeProperty: Int  {
+        return 27
+    }
+}
 
+class SomeClass {
+    static var storedTypeProperty = "some other values"
+    static var computedTypeProperty: Int {
+        return 27
+    }
+    //类的类型属性，你可以用class关键字赋予子类去重写父类的实现
+    class var overrideableComputedTypeProperty: Int {
+        return 107
+    }
+}
+
+struct AudioChannel {
+    static let thresholdLevel = 10
+    static var maxInputLevelForAllChannels = 0
+    var currentLevel: Int = 0 {
+        didSet {
+            if currentLevel > AudioChannel.thresholdLevel {
+                currentLevel = AudioChannel.thresholdLevel
+            }
+            if  currentLevel > AudioChannel.maxInputLevelForAllChannels {
+                AudioChannel.maxInputLevelForAllChannels = currentLevel
+            }
+        }
+    }
+}
 
 
 
