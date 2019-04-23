@@ -109,7 +109,7 @@ class Player {
 var player = Player(name: "Angle")
 player.complete(level: 1)
 
-print("highest un;ocked level is now \(LevelTracker.highestUnlockedLevel)")
+print("highest unlocked level is now \(LevelTracker.highestUnlockedLevel)")
 
 player.complete(level: 5)
 
