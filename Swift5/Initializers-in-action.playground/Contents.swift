@@ -186,3 +186,42 @@ let board = Chessboard()
 print(board.squareIsBlackAt(row: 0, column: 1))
 
 
+//析构过程
+class Bank {
+	static var coinsInBank = 10_000
+	//分发
+	static func distribute(coins numberOfCoinsRequested: Int) -> Int {
+		let numberOfCoinsRequested = min(numberOfCoinsRequested, coinsInBank)
+		coinsInBank -= numberOfCoinsRequested
+		return numberOfCoinsRequested
+	}
+	//收集
+	static func receive(coins: Int) {
+		coinsInBank += coins
+	}
+}
+
+//玩家
+class Player {
+	var coinsInPurse: Int
+	init(coins: Int) {
+		coinsInPurse = Bank.distribute(coins: coins)
+	}
+	func win(coins: Int) {
+		coinsInPurse += Bank.distribute(coins: coins)
+	}
+	deinit {
+		Bank.receive(coins: coinsInPurse)
+		print("player is deinit")
+	}
+}
+
+//这里用可选类型变量存储，是因为玩家随机可以离开游戏，设置为可选值使你可以追踪玩家是否在游戏中
+var playerOne: Player? = Player(coins: 100)
+//因为player可选，所以访问使用强制解包！
+playerOne!.win(coins: 2_000)
+print("Playerone won 2000 coins & now has \(playerOne!.coinsInPurse) coins")
+//玩家离开游戏，将可选变量playerOne设置为nil，意味着没有player实例，当这一切发生时，playerone变量对Player实例的引用被破坏了，没有其他属性或者变量引用Player实例，因此该实例会被释放，内存回收。在这之前，该实例的析构器会被自动调用，玩家的硬币会返还给银行。
+playerOne = nil
+//playerOne!.win(coins: 1)
+//print("Playerone won 1 coins & now has \(playerOne!.coinsInPurse) coins")
