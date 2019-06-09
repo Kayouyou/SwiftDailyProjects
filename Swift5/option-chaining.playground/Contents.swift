@@ -99,3 +99,58 @@ if let firstRoomName = jim.residence?[0].name {
 } else {
     print("Unable to receive the first room name")
 }
+//这样赋值同样会失败，因为residence目前是nil
+jim.residence?[0] = Room(name: "Bathroom")
+
+let jimHourse = Residence()
+jimHourse.rooms.append(Room(name: "Lving Room"))
+jimHourse.rooms.append(Room(name: "Kitchen"))
+jim.residence = jimHourse;
+
+if let firstRoomName = jim.residence?[0].name {
+    print("The first room name is \(firstRoomName)")
+} else {
+    print("Unable to retrieve the first room name")
+}
+
+//accessing-subscripts-of-optional-type
+var testScores = ["Dave":[86,23,45],"Bev":[79,94,81]]
+testScores["Dave"]?[0] = 91
+testScores["Bev"]?[0] += 1
+if let daveValue = testScores["Dave"]?[0] {
+    print(daveValue)
+}
+
+//linking-mutiple-levels-of-chaining
+//jim.residence现在包含一个有效的Residence实例，然而jim.residence.address的值当前为nil
+//street属性为string？jim.residence.address?.street的返回值 依然是string?及时已经使用了两层可选链调用
+let jimStreet = Address()
+jimStreet.buildingName = "The Larches"
+jimStreet.street = "Laurel Street"
+jim.residence?.address = jimStreet
+if let jimStreet = jim.residence?.address?.street {
+    print("jim's street name is \(jimStreet)")
+} else {
+    print("Unable to retrieve the address")
+}
+
+if let buildIdentifier = jim.residence?.address?.buildingIdentifier() {
+    print("jim's building identifier is \(buildIdentifier).")
+}
+
+//继续可选链式调用则在方法的后面加上问号即可
+//这里方法的圆括号后面加❓是因为你要在方法的可选返回值上进行可选链式调用，而不是方法本身
+if let beginsWithThe = jim.residence?.address?.buildingIdentifier()?.hasPrefix("The") {
+    if beginsWithThe {
+        print("jim's building identifier begins with \"The\".")
+    } else {
+        print("jim's building identifier dose not begin with \"The\".")
+    }
+}
+
+
+
+
+
+
+
